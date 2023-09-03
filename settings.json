@@ -1,0 +1,17 @@
+{
+  "basic_black_text": "DZIERŻAWA KSEROKOPIARKI - ABONAMENT LICZNIK: $current_black_counter$ [$sn$]",
+  "basic_color_text": "DZIERŻAWA KSEROKOPIARKI - ABONAMENT, LICZNIK: CZ-B: $current_black_counter$ KOLOR: $current_color_counter$ [$sn$]",
+  "extra_black_text": "DZIERŻAWA KSEROKOPIARKI - KOPIE POZA ABONAMENTEM CZ-B [$sn$]",
+  "extra_color_text": "DZIERŻAWA KSEROKOPIARKI - KOPIE POZA ABONAMENTEM KOLOR [$sn$]",
+  "price_extra_black": 0.04,
+  "price_extra_color": 0.15,
+  "due_days": 14,
+  "contractor_name": "Contractor name",
+  "address": "address",
+  "number": "number",
+  "local": "local",
+  "city": "city",
+  "postal_code": "postal code",
+  "tax_number": "tax number",
+  "report_filename": "exemplary_report.xlsx"
+}
