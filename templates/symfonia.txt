@@ -1,0 +1,239 @@
+INFO{
+	Nazwa programu =Symfonia Handel 2023.1
+	wersjaWewn =2023.1
+	Wersja szablonu =4
+	Kontrahent{
+		id =-464049466
+		kod =firma
+		nazwa =firma
+		miejscowosc =
+		ulica =
+		dom =
+		lokal =
+		kodPocztowy =
+		rejon =
+		NIP =
+		VIES =0
+		VATUE =
+		regon =
+		pesel =
+		telefon1 =
+		telefon2 =
+		fax =
+		email =
+		nazwaBanku =
+		numerRachunku =
+		numerWew =-464049466
+	}
+}
+Kraj{
+	symbol =PL
+	nazwa =Polska
+	aktywny =1
+	ue =1
+}
+StawkaVAT{
+	aktywny =1
+	typ =10
+	wartosc =0.2300
+	nazwa =23%
+	opis =Stawka 23%
+	stawka =0.23
+	dataod =2011-01-01
+	datado =
+	czyRR =0
+	kolejnosc =97700
+}
+towar{
+	Nazwa_Dl{
+		opis =dzierzawa
+	}
+	nazwa =dzierzawa
+	id =65551
+	kod =dzierzawa
+	typ =0
+	typext =0
+	kodPaskowy =
+	PKWiU =
+	PCN =
+	nazwaFiskal =
+	aktywny =1
+	znacznik =0
+	stVAT{
+		typ =10
+		wartosc =0.2300
+	}
+	zaokrCen =0
+	negocjacjaCen =0
+	przeliczCenSp =2
+	metodaRoz =0
+	typParamCen =2
+	idFK =
+	parametrFK =Towar
+	jm =szt
+	jmDomyslna =1
+	jmDod1 =
+	przelJmDod1 =0.0000
+	jmDod2 =
+	przelJmDod2 =0.0000
+	przelMasa =0.0000
+	przelJednUz =0.0000
+	szablonDost =
+	stanMin =0.0000
+	stanMax =0.0000
+	aktywny =1
+	trybWalutowy =0
+	kursWal =1.0000
+	dataKursWal =
+	przelicznikWal =1.0000
+	odwrotneObc =0
+	mpp =0
+	vat50 =0
+	JPK_V7 =
+	cenaBaz{
+		typ =8
+		typParam =2
+		parametr =0.00
+		typCeny =0
+		cena =0.0400
+		pln =0.0000
+		waluta =
+		data =2023-05-13
+	}
+	cenaZak{
+		typ =6
+		typParam =2
+		parametr =0.00
+		typCeny =0
+		cena =0.0000
+		pln =0.0000
+		waluta =
+		data =
+	}
+	cenaZakW{
+		typ =7
+		typParam =2
+		parametr =0.00
+		typCeny =0
+		cena =0.0000
+		pln =0.0000
+		waluta =
+		data =2023-05-13
+	}
+	cenaA{
+		typ =1
+		typParam =2
+		parametr =0.00
+		typCeny =2
+		cena =0.0400
+		pln =0.0000
+		powiazanieCeny =1
+		waluta =
+		data =2023-05-13
+	}
+	cenaB{
+		typ =2
+		typParam =2
+		parametr =0.00
+		typCeny =2
+		cena =0.0400
+		pln =0.0000
+		powiazanieCeny =1
+		waluta =
+		data =2023-05-13
+	}
+	cenaC{
+		typ =3
+		typParam =2
+		parametr =0.00
+		typCeny =2
+		cena =0.0400
+		pln =0.0000
+		powiazanieCeny =1
+		waluta =
+		data =2023-05-13
+	}
+	cenaD{
+		typ =4
+		typParam =2
+		parametr =0.00
+		typCeny =1
+		cena =0.0500
+		pln =0.0000
+		powiazanieCeny =1
+		waluta =
+		data =2023-05-13
+	}
+	kalkInne{
+		typ =9
+		typParam =2
+		parametr =0.00
+		typCeny =0
+		cena =0.0000
+		pln =0.0000
+		waluta =
+		data =2023-05-13
+	}
+	kalkClo{
+		typ =10
+		typParam =2
+		parametr =0.00
+		typCeny =0
+		cena =0.0000
+		pln =0.0000
+		waluta =
+		data =2023-05-13
+	}
+	kalkAkc{
+		typ =11
+		typParam =2
+		parametr =0.00
+		typCeny =0
+		cena =0.0000
+		pln =0.0000
+		waluta =
+		data =2023-05-13
+	}
+	rodzaj{
+		kod =Towary 
+	}
+	katalog{
+		nazwa =\
+	}
+	funduszPR{
+		kod =
+	}
+}
+DokumentSp{
+	typDk =FVS
+	charakter =40
+	seria =sFVS
+	jpk =1
+	opis =
+	niePodlega =0.000000000000
+	rabat =0.000000000000
+	rabatDoWartosci =0
+	znacznik =0
+	aktywny =1
+	rodzajCeny =2
+	typCeny =1
+	waluta =
+	kurs =1.000000000000
+	kursDochWp =1.000000000000
+	przelicznikKursu =1
+	metodaVAT =0
+	naliczanieVAT =0
+	rejestrVAT =rSPV
+	schematKsiegowania =SP
+	JPK_V7 =
+	rejestr{
+		kod =BANK
+	}
+	rodzaj{
+		kod =Dokumenty sprzeda¿y 
+	}
+	katalog{
+		nazwa =\
+	}
+	MPP =0
+}

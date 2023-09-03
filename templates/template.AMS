@@ -1,0 +1,1678 @@
+#format "AMS"
+#format "AMS"
+#format "AMS"
+#Disable  "2"  //poziom ostrze¿eñ 1 (m.in. bez ostrze¿enia "Pole nie znalezione")
+#RodzajDokumentu ""
+
+// Czy umieszczaæ dane we w³aœciwym katalogu i rodzaju (tworz¹c je jeœli takich nie by³o)?
+// 6 - tak, 7 - nie, 3 - zadaj pytanie
+#DoKataloguKH 7
+#DoKataloguTW 7
+#DoKataloguWR 7
+#DoKataloguUR 7
+#DoKataloguSP 7
+#DoKataloguZK 7
+#DoKataloguMG 7
+#DoKataloguZO 7
+#DoKataloguZW 7
+
+#DoRodzajuKH 7
+#DoRodzajuTW 7
+#DoRodzajuWR 7
+#DoRodzajuUR 7
+#DoRodzajuSP 7
+#DoRodzajuZK 7
+#DoRodzajuMG 7
+#DoRodzajuZO 7
+#DoRodzajuZW 7
+
+
+#sprzedaz ""
+#przelicznikKursu ""
+
+Section( "INFO", "INFO")
+{
+	if ( !equal([Wersja szablonu], "4") )
+	{
+		if (  equal(ASK("Wskazany plik danych wymaga innej wersji szablonu importowego. Czy przerwaæ import danych? {{icon=? buttons=[&Tak:t](&Nie:n)}}"), 6) )
+			ERROR("Operacja importu zosta³a przerwana.")
+	}
+
+	Section( "Kontrahent", "Kontrahent")
+	{
+		$id = [numerWew]
+		$kod = [kod]
+		$nazwa = [nazwa]
+		$miejscowosc = [miejscowosc]		
+		$ulica = [ulica]		
+		$dom = [dom]		
+		$lokal = [lokal]
+		$kodPocztowy = [kodPocztowy]
+		$rejon = [rejon]
+		$NIP = [NIP]
+		$VIES = [VIES]
+		if ( !EQUAL([VATUE], "") )
+			$NIP = [VATUE]
+		$regon = [regon]
+		$pesel = [pesel]
+		$telefon1 = [telefon1]
+		$telefon2 = [telefon2]
+		$fax = [fax]
+		$email = [email]
+		$nazwaBanku = [nazwaBanku]
+		$numerRachunku = [numerRachunku]
+	}
+}
+
+
+Section( "Kontrahent", "Kontrahent")
+{
+	Info("Kontrahent: ", [kod])
+
+	Section( "Notatka_Dl", "Notatka_Dl", "REPEAT")
+	{
+		$opis = [opis]
+	}
+
+	$id = [id]
+	$kod = [kod]
+	$nazwa = [nazwa]
+	$aktywny=[aktywny]
+	$znacznik = [znacznik]
+
+	Section( "wprowadzil", "wprowadzil")
+	{
+		$kod = [kod]
+	}
+
+	$miejscowosc = [miejscowosc]
+	$miejscowosc2 = [miejscowosc2]
+	$ulica = [ulica]
+	$ulica2 = [ulica2]
+	$dom = [dom]
+	$dom2 = [dom2]
+	$lokal = [lokal]
+	$lokal2 = [lokal2]
+	$kodPocztowy = [kodPocztowy]
+	$kodPocztowy2 = [kodPocztowy2]
+	$rejon = [rejon]
+	$rejon2 = [rejon2]
+	$NIP = [NIP]
+	$VIES = [VIES]
+	$regon = [regon]
+	$pesel = [pesel]
+	$osfiz = [osfiz]
+	$telefon1 = [telefon1]
+	$telefon2 = [telefon2]
+	$fax = [fax]
+	$email = [email]
+	$stronaWWW = [stronaWWW]
+	$facebook = [facebook]
+	$nazwisko = [nazwisko]
+	$imie = [imie]
+	$nazwaBanku = [nazwaBanku]
+	$numerRachunku = [numerRachunku]
+	$typCeny = [typCeny]
+	$rodzajCeny = [rodzajCeny]
+	$rabat = [rabat]
+	$negocjacjaCen = [negocjacjaCen]
+	$limit = [limit]
+	$kwota = [kwota]
+	$waluta = [waluta]
+	$idFK = [idFK]
+	$parametrFK = [parametrFK]
+	$podatnikVAT = [podatnikVAT]
+	$jednostkaPowiazana = [jednostkaPowiazana]
+	$splitPayment = [MPP]
+
+	Section( "kraj", "kraj")
+	{
+		$symbol = [symbol]
+	}
+
+	Section( "kraj2", "kraj2")
+	{
+		$symbol = [symbol]
+	}
+
+	Section( "rejestr", "rejestr")
+	{
+		$kod = [kod]
+	}
+
+	Section( "formaPl", "formaPl")
+	{
+		$nazwa = [nazwa]
+		$termin = [termin]
+	}
+
+	Section( "rodzaj", "rodzaj")
+	{
+		if ( equal(Def("DoRodzajuKH"), 3) )
+			Def("DoRodzajuKH", Ask("Czy importowaæ rodzaje kontrahentów?", "{{icon=? buttons=[Tak:6](Nie:7)}}") )
+
+		if ( equal(Def("DoRodzajuKH"), 6) )
+		{
+			$kod = [kod]
+			$dodajJesliNowy = 1
+		}
+	}
+
+	Section( "katalog", "katalog")
+	{
+		if ( equal(Def("DoKataloguKH"), 3) )
+			Def("DoKataloguKH", Ask("Czy importowaæ katalogi kontrahentów?", "{{icon=? buttons=[Tak:6](Nie:7)}}") )
+
+		if ( equal(Def("DoKataloguKH"), 6) )
+		{
+			$Nazwa =[Nazwa]
+			$dodajJesliNowy = 1
+		}
+	}
+}
+
+
+Section( "Pracownik", "Pracownik")
+{
+	Info("Pracownik: ", [kod])
+
+	Section( "Notatka_Dl", "Notatka_Dl", "REPEAT")
+	{
+		$opis = [opis]
+	}
+
+	$id = [id]
+	$kod = [kod]
+	$nazwisko = [nazwisko]
+	$imie = [imie]
+	$aktywny=[aktywny]
+	$znacznik = [znacznik]
+
+	Section( "wprowadzil", "wprowadzil")
+	{
+		$kod = [kod]
+	}
+
+	$miejscowosc = [miejscowosc]
+	$ulica = [ulica]
+	$dom = [dom]
+	$lokal = [lokal]
+	$kodPocztowy = [kodPocztowy]
+	$rejon = [rejon]
+	$miejscowosc2 = [miejscowosc2]
+	$ulica2 = [ulica2]
+	$dom2 = [dom2]
+	$lokal2 = [lokal2]
+	$kodPocztowy2 = [kodPocztowy2]
+	$rejon2 = [rejon2]
+	$nip = [nip]
+	$pesel = [pesel]
+	$telefon1 = [telefon1]
+	$telefon2 = [telefon2]
+	$fax = [fax]
+	$email = [email]
+	$nazwaBanku = [nazwaBanku]
+	$numerRachunku = [numerRachunku]
+	$idFK = [idFK]
+	$parametrFK=[parametrFK]
+
+	Section( "rodzaj", "rodzaj")
+	{
+		if ( equal(Def("DoRodzajuWR"), 3) )
+			Def("DoRodzajuWR", Ask("Czy importowaæ rodzaje pracowników?", "{{icon=? buttons=[Tak:6](Nie:7)}}") )
+
+		if ( equal(Def("DoRodzajuWR"), 6) )
+		{
+			$kod = [kod]
+			$dodajJesliNowy = 1
+		}
+	}
+
+	Section( "katalog", "katalog")
+	{
+		if ( equal(Def("DoKataloguWR"), 3) )
+			Def("DoKataloguWR", Ask("Czy importowaæ katalogi pracowników?", "{{icon=? buttons=[Tak:6](Nie:7)}}") )
+
+		if ( equal(Def("DoKataloguWR"), 6) )
+		{
+			$Nazwa =[Nazwa]
+			$dodajJesliNowy = 1
+		}
+	}
+} 
+
+
+Section( "urzad", "urzad")
+{
+	Info("Urz¹d: ", [kod])
+
+	Section( "Notatka_Dl", "Notatka_Dl", "REPEAT")
+	{
+		$opis = [opis]
+	}
+
+	$id = [id]
+	$kod = [kod]
+	$nazwa = [nazwa]
+	$aktywny=[aktywny]
+	$znacznik = [znacznik]
+
+	Section( "wprowadzil", "wprowadzil")
+	{
+		$kod = [kod]
+	}
+
+	$miejscowosc = [miejscowosc]
+	$ulica = [ulica]
+	$dom = [dom]
+	$lokal = [lokal]
+	$kodPocztowy = [kodPocztowy]
+	$rejon = [rejon]
+	$kodUrzeduSkarbowego = [kodUrzeduSkarbowego]
+	$telefon1 = [telefon1]
+	$telefon2 = [telefon2]
+	$fax = [fax]
+	$email = [email]
+	$stronaWWW = [stronaWWW]
+	$nazwaBanku = [nazwaBanku]
+	$numerRachunku = [numerRachunku]
+	$idFK = [idFK]
+	$parametrFK=[parametrFK]
+
+	Section( "rodzaj", "rodzaj")
+	{
+		if ( equal(Def("DoRodzajuUR"), 3) )
+			Def("DoRodzajuUR", Ask("Czy importowaæ rodzaje urzêdów?", "{{icon=? buttons=[Tak:6](Nie:7)}}") )
+
+		if ( equal(Def("DoRodzajuUR"), 6) )
+		{
+			$kod = [kod]
+			$dodajJesliNowy = 1
+		}
+	}
+
+	Section( "katalog", "katalog")
+	{
+		if ( equal(Def("DoKataloguUR"), 3) )
+			Def("DoKataloguUR", Ask("Czy importowaæ katalogi urzêdów?", "{{icon=? buttons=[Tak:6](Nie:7)}}") )
+
+		if ( equal(Def("DoKataloguUR"), 6) )
+		{
+			$Nazwa =[Nazwa]
+			$dodajJesliNowy = 1
+		}
+	}
+}
+
+
+Section("StawkaVAT", "StawkaVAT")
+{
+	$aktywny = [aktywny]
+	$typ = [typ]
+	$wartosc = [wartosc]
+	$nazwa = [nazwa]
+	$opis = [opis]
+	$stawka = [stawka]
+	$dataod = [dataod]
+	$datado = [datado]
+	$czyRR = [czyRR]
+	$kolejnosc = [kolejnosc]
+}
+
+
+Section( "towar", "towar")
+{
+	Info("towar: ", [kod])
+
+	Section( "Nazwa_Dl", "Nazwa_Dl", "REPEAT")
+	{
+		$opis = [opis]
+	}
+
+	Section( "Notatka_Dl", "Notatka_Dl", "REPEAT")
+	{
+		$opis = [opis]
+	}
+
+	$id = [id]
+	$aktywny=[aktywny]
+	$znacznik = [znacznik]
+	$kod = [kod]
+	if (exist("typ"))
+	{
+		$typ = [typ]
+	}
+	if (exist("typext"))
+	{
+		$typext = [typext]
+	}
+	$kodPaskowy = [kodPaskowy]
+
+	if ( !EQUAL([nazwa], "") ) // w przypadku d³ugiej nazwy to pole nie powinno siê znaleŸæ na liœcie importowanych pól nawet jako puste
+		$nazwa = [nazwa]
+
+	$PKWiU = [PKWiU]
+	$PCN = [PCN]
+	$nazwaFiskal = [nazwaFiskal]
+
+	if ( !EQUAL([typ],"2") ) // zestaw
+	{
+		Section( "stVAT", "stVAT")
+		{
+			$typ = [typ]
+			$wartosc = [wartosc]
+		}
+	}
+
+	$zaokrCen = [zaokrCen]
+	$negocjacjaCen = [negocjacjaCen]
+	$przeliczCenSp = [przeliczCenSp]
+	$metodaRoz = [metodaRoz]
+//	$typParamCen = [typParamCen] atrybut UI a nie obiektu BI
+	$idFK = [idFK]
+	$parametrFK = [parametrFK]
+	$jm = [jm]
+	$jmDomyslna = [jmDomyslna]
+	$jmDod1 = [jmDod1]
+	$przelJmDod1 = [przelJmDod1]
+	$jmDod2 = [jmDod2]
+	$przelJmDod2 = [przelJmDod2]
+	$przelMasa = [przelMasa]
+	$przelJednUz = [przelJednUz]
+	$szablonDost = [szablonDost]
+	$stanMin = [stanMin]
+	$stanMax = [stanMax]
+	$trybWalutowy = [trybWalutowy]
+	$kursWal = [kursWal]
+	$dataKursWal = [dataKursWal]
+	$przelicznikWal = [przelicznikWal]
+	$odwrotneObciazenie = [odwrotneObc]
+	$mpp = [mpp]
+	$vat50 = [vat50]
+	$JPK_V7 = [JPK_V7]
+
+	Section( "cenaBaz", "cenaBaz")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$waluta = [waluta]
+	}
+
+	Section( "cenaZak", "cenaZak")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$waluta = [waluta]
+		$data = [data]
+	}
+
+	Section( "cenaZakW", "cenaZakW")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$waluta = [waluta]
+	}
+
+	Section( "cenaA", "cenaA")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$powiazanieCeny = [powiazanieCeny]
+		$waluta = [waluta]
+	}
+
+	Section( "cenaB", "cenaB")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$powiazanieCeny = [powiazanieCeny]
+		$waluta = [waluta]
+	}
+
+	Section( "cenaC", "cenaC")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$powiazanieCeny = [powiazanieCeny]
+		$waluta = [waluta]
+	}
+
+	Section( "cenaD", "cenaD")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$powiazanieCeny = [powiazanieCeny]
+		$waluta = [waluta]
+	}
+
+	Section( "cenaE", "cenaE")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$powiazanieCeny = [powiazanieCeny]
+		$waluta = [waluta]
+	}
+
+	Section( "cenaF", "cenaF")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$powiazanieCeny = [powiazanieCeny]
+		$waluta = [waluta]
+	}
+
+	Section( "cenaG", "cenaG")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$powiazanieCeny = [powiazanieCeny]
+		$waluta = [waluta]
+	}
+
+	Section( "cenaH", "cenaH")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$powiazanieCeny = [powiazanieCeny]
+		$waluta = [waluta]
+	}
+
+	Section( "cenaI", "cenaI")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$powiazanieCeny = [powiazanieCeny]
+		$waluta = [waluta]
+	}
+
+	Section( "cenaJ", "cenaJ")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$powiazanieCeny = [powiazanieCeny]
+		$waluta = [waluta]
+	}
+
+	Section( "cenaK", "cenaK")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$powiazanieCeny = [powiazanieCeny]
+		$waluta = [waluta]
+	}
+
+	Section( "cenaL", "cenaL")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$powiazanieCeny = [powiazanieCeny]
+		$waluta = [waluta]
+	}
+
+	Section( "cenaM", "cenaM")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$powiazanieCeny = [powiazanieCeny]
+		$waluta = [waluta]
+	}
+
+	Section( "cenaN", "cenaN")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$powiazanieCeny = [powiazanieCeny]
+		$waluta = [waluta]
+	}
+
+	Section( "cenaO", "cenaO")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$powiazanieCeny = [powiazanieCeny]
+		$waluta = [waluta]
+	}
+
+	Section( "cenaP", "cenaP")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$powiazanieCeny = [powiazanieCeny]
+		$waluta = [waluta]
+	}
+
+	Section( "cenaQ", "cenaQ")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$powiazanieCeny = [powiazanieCeny]
+		$waluta = [waluta]
+	}
+
+	Section( "cenaR", "cenaR")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$powiazanieCeny = [powiazanieCeny]
+		$waluta = [waluta]
+	}
+
+	Section( "cenaS", "cenaS")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$powiazanieCeny = [powiazanieCeny]
+		$waluta = [waluta]
+	}
+
+	Section( "cenaT", "cenaT")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$powiazanieCeny = [powiazanieCeny]
+		$waluta = [waluta]
+	}
+
+	Section( "kalkInne", "kalkInne")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$waluta = [waluta]
+	}
+
+	Section( "kalkClo", "kalkClo")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$waluta = [waluta]
+	}
+
+	Section( "kalkAkc", "kalkAkc")
+	{
+		$typ = [typ]
+		$typParam = [typParam]
+		$parametr = [parametr]
+		$cena = [cena]
+		$pln = [pln]
+		$waluta = [waluta]
+	}
+
+	Section( "rodzaj", "rodzaj")
+	{
+		if ( equal(Def("DoRodzajuTW"), 3) )
+			Def("DoRodzajuTW", Ask("Czy importowaæ rodzaje towarów?", "{{icon=? buttons=[Tak:6](Nie:7)}}") )
+
+		if ( equal(Def("DoRodzajuTW"), 6) )
+		{
+			$kod = [kod]
+			$dodajJesliNowy = 1
+		}
+	}
+
+	Section( "katalog", "katalog")
+	{
+		if ( equal(Def("DoKataloguTW"), 3) )
+			Def("DoKataloguTW", Ask("Czy importowaæ katalogi towarów?", "{{icon=? buttons=[Tak:6](Nie:7)}}") )
+
+		if ( equal(Def("DoKataloguTW"), 6) )
+		{
+			$Nazwa =[Nazwa]
+			$dodajJesliNowy = 1
+		}
+	}
+
+	Section( "zestawTw", "zestawTw", "REPEAT")
+	{
+		$kodTowaru = [kodTowaru]
+		$ilosc = [ilosc]
+	}
+
+	if ( EQUAL([typ],"3") ) // komplet
+	{
+		$czyKomplSuma = [czyKomplSuma]
+		$czyKomplStaly = [czyKomplStaly]
+		$czyKomplSkladowe = [czyKomplSkladowe]
+	}
+
+	Section( "kompletTw", "kompletTw", "REPEAT")
+	{
+		$kodTowaru = [kodTowaru]
+		$ilosc = [ilosc]
+	}
+	
+	Section( "funduszPR", "funduszPR")
+	{
+		$kod = [kod]
+	}
+
+}
+
+Section("Waluta", "Waluta")
+{
+	$kod = [kod]
+	$nazwa = [nazwa]
+	$przelicznik = [przelicznik]
+	Def( "przelicznikKursu", [Przelicznik] )
+}
+
+Section("Kraj", "Kraj")
+{
+	$symbol = [symbol]
+	$nazwa = [nazwa]
+	$aktywny = [aktywny]
+	$ue = [ue]
+}
+
+Section("StawkaVAT", "StawkaVAT")
+{
+	$aktywny = [aktywny]
+	$typ = [typ]
+	$wartosc = [wartosc]
+	$nazwa = [nazwa]
+	$opis = [opis]
+	$stawka = [stawka]
+	$dataod = [dataod]
+	$datado = [datado]
+	$czyRR = [czyRR]
+	$kolejnosc = [kolejnosc]
+}
+
+Section("Magazyn", "")
+{
+}
+
+Section("DokumentRW", "DokumentMG")
+{
+	Info("Dokument: ", [numer])
+
+// typ dokumentu jest pobierany z parametru pracy o podanej nazwie, 
+// po znaku $ podajemy wartoœæ domyœln¹ parametru:
+
+	$typ_dokumentu_parametr = "Typ dokumentu - Import towarów z innego oddzia³u$PRW"
+
+	$nadawca_jako_kh = 1
+
+	$opis = CAT([opis], " wed³ug: ", [numer])
+
+	Section("", "", "REPEAT")
+	{
+		switch( Translate( Name(), "L") )
+		{
+		case "pozycja dokumentu"
+			if ( !equal([komplet], "1") )	// jeœli nie jest to komplet
+			{
+				MakeSec("Pozycja dokumentu")
+				{
+					$kod = [kod]
+					$ilosc_ewid = [ilosc]
+					$wartosc = [rozchod]
+					$nazwaDostawy = [nazwaDostawy]
+					Section( "Nazwa_Dl", "Nazwa_Dl", "REPEAT")
+					{
+						$opis = [opis]
+					}
+				}
+			}
+			break
+
+		case "notatka_dl"
+			MakeSec("Notatka_Dl")
+			{
+				$opis = [opis]
+			}
+			break
+		}
+	}
+}
+
+
+Section("","")
+{
+	switch( Translate( Name(), "L") )
+	{
+	case "dokumentsp"
+		Def("sprzedaz", "1")
+
+	case "dokumentmg"
+	case "dokumentzk"
+
+		if ( !Def("RodzajDokumentu"))
+		{
+			@action = Ask("W pliku wejœciowym istniej¹ dane dokumentów.",
+				"Bêd¹ one zaimportowane do bufora jednej z kartotek.",
+				"", 
+				"Proszê wybraæ kartotekê, do której maj¹ trafiæ importowane dokumenty.",
+				"{{icon=? buttons=[Dokumenty &sprzeda¿y:3](Dokumenty &zakupu:4)(Dokumenty &magazynowe:5)}}")
+
+			switch( @action )
+			{
+			case 4
+				Def("RodzajDokumentu", "ZK")
+				info("Import dokumentów do bufora kartoteki dokumentów zakupu.")
+				break
+			case 5
+				Def("RodzajDokumentu", "MG")
+				info("Import dokumentów do bufora kartoteki dokumentów magazynowych.")
+				break
+			case else // :3
+				Def("RodzajDokumentu", "SP")
+				info("Import dokumentów do bufora kartoteki dokumentów sprzeda¿y.")
+				break
+			}
+		}
+
+		break
+
+	case "dokumentzo"
+		Def("sprzedaz", "1")
+
+	case "dokumentzw"
+
+		if ( !Def("RodzajDokumentu"))
+		{
+			@action = Ask("W pliku wejœciowym istniej¹ dane dokumentów.",
+				"Bêd¹ one zaimportowane do bufora jednej z kartotek.",
+				"", 
+				"Proszê wybraæ kartotekê, do której maj¹ trafiæ importowane dokumenty.",
+				"{{icon=? buttons=[Zamówienia &obce:1](Zamówienia &w³asne:3)}}")
+
+			switch( @action )
+			{
+			case 3
+				Def("RodzajDokumentu", "ZW")
+				info("Import dokumentów do bufora kartoteki zamówieñ w³asnych.")
+				break
+			case else // :1
+				Def("RodzajDokumentu", "ZO")
+				info("Import dokumentów do bufora kartoteki zamówieñ obcych.")
+				break
+			}
+		}
+		
+		break
+
+	case else
+		Warning("Nierozpoznana sekcja: ", Name())
+		@nierozpoznana_sekcja = 1
+	}
+
+	if ( !@nierozpoznana_sekcja )
+	{
+		Info("Dokument: ", [numer])
+
+		switch( Def("RodzajDokumentu") )
+		{
+		case "ZW"
+			MakeSec("DokumentZw")
+			{
+				$dataWystawienia = [dataWystawienia]
+				$typDk = [typDk]
+				$seria = [seria]
+				$rodzajCeny = [rodzajCeny]
+
+				Section( "Notatka_Dl", "Notatka_Dl", "REPEAT")
+				{
+					$opis = [opis]
+				}
+
+				$odebranyPrzez = [odebranyPrzez]
+				$opis = [opis]
+				$waluta = [waluta]
+				$przelicznikKursu = Def( "przelicznikKursu" )
+				$czyWalutowy = [czyWalutowy]
+				$kurs = [kurs]
+				$znacznik = [znacznik]
+
+				Section( "DaneKh", "DaneKh")
+				{
+					$KhKod = [KhKod]
+					$KhNazwa = [KhNazwa]
+					$KhUlica = [KhUlica]
+					$KhDomu = [KhDomu]
+					$KhLokal = [KhLokal]
+					$KhMiasto = [KhMiasto]		
+					$KhPoczta = [KhPoczta]
+					$KhKodPocz = [KhKodPocz]
+					$KhNIP = [KhNIP]
+
+					Section( "kraj", "kraj")
+					{
+						$aktywny = [aktywny]
+						$symbol = [symbol]
+						$nazwa = [nazwa]
+						$ue = [ue]
+					}
+				}
+
+				Section( "DaneOd", "DaneOd")
+				{
+					$KhKod = [KhKod]
+					$KhNazwa = [KhNazwa]
+					$KhUlica = [KhUlica]
+					$KhDomu = [KhDomu]
+					$KhLokal = [KhLokal]
+					$KhMiasto = [KhMiasto]		
+					$KhPoczta = [KhPoczta]
+					$KhKodPocz = [KhKodPocz]
+					$NazwaAdresu  = [NazwaAdresu]
+				}
+
+				$numer 	= [numer]
+				$nazwa 	= [nazwa]
+
+				Section( "rejestr", "rejestr")
+				{
+					$kod = [kod]
+				}
+
+				Section( "formaPl", "formaPl")
+				{
+					$nazwa = [nazwa]
+					$termin = [termin]
+				}
+
+				Section( "rodzaj", "rodzaj")
+				{
+					if ( equal(Def("DoRodzajuZW"), 3) )
+						Def("DoRodzajuZW", Ask("Czy importowaæ rodzaje zamówieñ w³asnych?", "{{icon=? buttons=[Tak:6](Nie:7)}}") )
+
+					if ( equal(Def("DoRodzajuZW"), 6) )
+					{
+						$kod = [kod]
+						$dodajJesliNowy = 1
+					}
+				}
+
+				Section( "katalog", "katalog")
+				{
+					if ( equal(Def("DoKataloguZW"), 3) )
+						Def("DoKataloguZW", Ask("Czy importowaæ katalogi zamówieñ w³asnych?", "{{icon=? buttons=[Tak:6](Nie:7)}}") )
+
+					if ( equal(Def("DoKataloguZW"), 6) )
+					{
+						$Nazwa =[Nazwa]
+						$dodajJesliNowy = 1
+					}
+				}
+
+				Section("", "", "REPEAT")
+				{
+					switch( Translate( Name(), "L") )
+					{
+					case "pozycja dokumentu"
+						if ( !equal([komplet], "1") )	// jeœli nie jest to komplet
+						{
+							MakeSec("Pozycja dokumentu")
+							{
+
+								if(equal([kod], ""))
+								{
+									//$PKWiU	= [PKWiU]
+									$jednostkaMiary	= [jednostkaMiary]
+									Section( "Nazwa_Dl", "Nazwa_Dl", "REPEAT")
+									{
+										$opis = [opis]
+									}
+
+									$cena   = [cena]
+									
+									Section( "stVAT", "stVAT")
+									{
+										$typ = [typ]
+										$wartosc = [wartosc]
+									}
+								}
+								else
+								{
+									$kod = [kod]
+									$cena = [cena]
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//UWAGA! jeœli chcemy przepisywaæ stawkê VAT to wczeœniejsz¹ sekcj¹ (Nazwa_Dl) równie¿ nale¿y sparsowaæ
+//									Section( "Nazwa_Dl", "Nazwa_Dl", "REPEAT")
+//									{
+//										$opisNieUzywane = [opis]
+//									}
+//
+//									Section( "stVAT", "stVAT")
+//									{
+//										$typ = [typ]
+//										$wartosc = [wartosc]
+//									}
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+								}
+								
+								If( !Equal( $$czyWalutowy, 0 ) )
+								{
+									if( !Equal( $$kurs, 0 ) )
+									{
+										$cena = DIV6( $cena, $$kurs )
+									}
+								}
+
+								$ilosc_ewid = [ilosc]
+							}
+						}
+						break
+
+					case "notatka_dl"
+						MakeSec("Notatka_Dl")
+						{
+							$opis		= [opis]
+						}
+						break
+					}
+				}
+			}
+			break
+
+		case "ZO"
+			MakeSec("DokumentZo")
+			{
+				$dataWystawienia = [dataWystawienia]
+				$typDk = [typDk]
+				$seria = [seria]
+				$typCeny = [typCeny]
+				$rodzajCeny = [rodzajCeny]
+
+				Section( "Notatka_Dl", "Notatka_Dl", "REPEAT")
+				{
+					$opis = [opis]
+				}
+
+				$odebranyPrzez = [odebranyPrzez]
+				$opis = [opis]
+				$waluta = [waluta]
+				$przelicznikKursu = Def( "przelicznikKursu" )
+				$czyWalutowy = [czyWalutowy]
+				$kurs = [kurs]
+				$znacznik = [znacznik]
+
+				$numer 	= [numer]
+				$nazwa 	= [nazwa]
+
+				Section( "DaneKh", "DaneKh")
+				{
+					$KhKod = [KhKod]
+					$KhNazwa = [KhNazwa]
+					$KhUlica = [KhUlica]
+					$KhDomu = [KhDomu]
+					$KhLokal = [KhLokal]
+					$KhMiasto = [KhMiasto]	
+					$KhPoczta = [KhPoczta]
+					$KhKodPocz = [KhKodPocz]
+					$KhNIP = [KhNIP]
+
+					Section( "kraj", "kraj")
+					{
+						$aktywny = [aktywny]
+						$symbol = [symbol]
+						$nazwa = [nazwa]
+						$ue = [ue]
+					}
+				}
+
+				Section( "DaneOd", "DaneOd")
+				{
+					$KhKod = [KhKod]
+					$KhNazwa = [KhNazwa]
+					$KhUlica = [KhUlica]
+					$KhDomu = [KhDomu]
+					$KhLokal = [KhLokal]
+					$KhMiasto = [KhMiasto]		
+					$KhPoczta = [KhPoczta]
+					$KhKodPocz = [KhKodPocz]
+					$NazwaAdresu  = [NazwaAdresu]
+				}
+
+				Section( "rejestr", "rejestr")
+				{
+					$kod = [kod]
+				}
+
+				Section( "formaPl", "formaPl")
+				{
+					$nazwa = [nazwa]
+					$termin = [termin]
+				}
+
+				Section( "rodzaj", "rodzaj")
+				{
+					if ( equal(Def("DoRodzajuZO"), 3) )
+						Def("DoRodzajuZO", Ask("Czy importowaæ rodzaje zamówieñ obcych?", "{{icon=? buttons=[Tak:6](Nie:7)}}") )
+
+					if ( equal(Def("DoRodzajuZO"), 6) )
+					{
+						$kod = [kod]
+						$dodajJesliNowy = 1
+					}
+				}
+
+				Section( "katalog", "katalog")
+				{
+					if ( equal(Def("DoKataloguZO"), 3) )
+						Def("DoKataloguZO", Ask("Czy importowaæ katalogi zamówieñ obcych?", "{{icon=? buttons=[Tak:6](Nie:7)}}") )
+
+					if ( equal(Def("DoKataloguZO"), 6) )
+					{
+						$Nazwa =[Nazwa]
+						$dodajJesliNowy = 1
+					}
+				}
+
+				Section("", "", "REPEAT")
+				{
+					switch( Translate( Name(), "L") )
+					{
+					case "pozycja dokumentu"
+						if ( !equal([dokompletu], "1") )	// jeœli nie jest to element kompletu
+						{
+							MakeSec("Pozycja dokumentu")
+							{
+								if(equal([kod], ""))
+								{
+									//$PKWiU	= [PKWiU]
+									$jednostkaMiary	= [jednostkaMiary]
+									Section( "Nazwa_Dl", "Nazwa_Dl", "REPEAT")
+									{
+										$opis = [opis]
+									}
+									
+									Section( "stVAT", "stVAT")
+									{
+										$typ = [typ]
+										$wartosc = [wartosc]
+									}
+
+									$cena   = [cena]
+								}
+								else
+								{
+									$kod = [kod]
+									$cena = [cena]
+								}
+
+								If( !Equal( $$czyWalutowy, 0 ) )
+								{
+									if( !Equal( $$kurs, 0 ) )
+									{
+										$cena = DIV6( $cena, $$kurs )
+									}
+								}
+
+								$ilosc_ewid = [ilosc]
+							}
+						}
+						break
+
+					case "notatka_dl"
+						MakeSec("Notatka_Dl")
+						{
+							$opis		= [opis]
+						}
+						break
+					}
+				}
+
+			}
+			break
+
+		case "ZK"
+			MakeSec("DokumentZk")
+			{
+				$dataWystawienia = [dataWystawienia]
+				$typDk = [typDk]
+				$seria = [seria]
+				$rodzajCeny = [rodzajCeny]
+				$terminPlatnosci = [terminPlatnosci]
+				$numerObcy = [numerObcy]
+				$dataZakupu = [dataZakupu]
+				if (exist("dataWystawieniaObca"))
+				{
+					$dataWystawieniaObca = [dataWystawieniaObca]
+				}
+				else
+				{
+					$dataWystawieniaObca = [dataZakupu]
+				}	
+
+				Section( "Notatka_Dl", "Notatka_Dl", "REPEAT")
+				{
+					$opis = [opis]
+				}
+
+				$WhiteList =[RejestrPodatnikow]
+				$SplitPayment = [MPP]
+				$ForceSP = [DMPP]
+				$RachunekBankowy = [RachunekBankowy]
+				$odebranyPrzez = [odebranyPrzez]
+				$opis = [opis]
+				$rejestrVAT = [rejestrVAT]
+				$rejestrVATnalezny = [rejestrVATnalezny]
+				$waluta = [waluta]
+				$przelicznikKursu = Def( "przelicznikKursu" )
+				$czyWalutowy = [czyWalutowy]
+				$kurs = [kurs]
+				$kursDoch = [kursDochWp]
+				$znacznik = [znacznik]
+				$naliczanieVAT = [naliczanieVAT]
+				$JPK_V7 = [JPK_V7]
+
+				$numer 	= [numer]
+				$nazwa 	= [nazwa]
+
+				Section( "DaneKh", "DaneKh")
+				{
+					$KhKod = [KhKod]
+					$KhNazwa = [KhNazwa]
+					$KhUlica = [KhUlica]
+					$KhDomu = [KhDomu]
+					$KhLokal = [KhLokal]
+					$KhMiasto = [KhMiasto]	
+					$KhPoczta = [KhPoczta]
+					$KhKodPocz = [KhKodPocz]
+					$KhNIP = [KhNIP]
+
+					Section( "kraj", "kraj")
+					{
+						$aktywny = [aktywny]
+						$symbol = [symbol]
+						$nazwa = [nazwa]
+						$ue = [ue]
+					}
+				}
+
+				Section( "DaneOd", "DaneOd")
+				{
+					$KhKod = [KhKod]
+					$KhNazwa = [KhNazwa]
+					$KhUlica = [KhUlica]
+					$KhDomu = [KhDomu]
+					$KhLokal = [KhLokal]
+					$KhMiasto = [KhMiasto]	
+					$KhPoczta = [KhPoczta]
+					$KhKodPocz = [KhKodPocz]
+					$NazwaAdresu  = [NazwaAdresu]
+				}
+
+				Section( "rejestr", "rejestr")
+				{
+					$kod = [kod]
+				}
+
+				Section( "formaPl", "formaPl")
+				{
+					$nazwa = [nazwa]
+					$termin = [termin]
+				}
+
+				if ( Equal( Def("sprzedaz"), "1") )
+				{
+					$nadawca_jako_kh = 1
+					$nadawca_jako_od = 1
+					$numerObcy = [numer]
+					$dataZakupu = [dataSprzedazy]
+					$dataWystawieniaObca = [dataWystawienia]
+				}
+
+				Section( "rodzaj", "rodzaj")
+				{
+					if ( equal(Def("DoRodzajuZK"), 3) )
+						Def("DoRodzajuZK", Ask("Czy importowaæ rodzaje dokumentów zakupu?", "{{icon=? buttons=[Tak:6](Nie:7)}}") )
+
+					if ( equal(Def("DoRodzajuZK"), 6) )
+					{
+						$kod = [kod]
+						$dodajJesliNowy = 1
+					}
+				}
+
+				Section( "katalog", "katalog")
+				{
+					if ( equal(Def("DoKataloguZK"), 3) )
+						Def("DoKataloguZK", Ask("Czy importowaæ katalogi dokumentów zakupu?", "{{icon=? buttons=[Tak:6](Nie:7)}}") )
+
+					if ( equal(Def("DoKataloguZK"), 6) )
+					{
+						$Nazwa =[Nazwa]
+						$dodajJesliNowy = 1
+					}
+				}
+
+				Section("", "", "REPEAT")
+				{
+					switch( Translate( Name(), "L") )
+					{
+					case "pozycja dokumentu"
+						if ( !equal([komplet], "1") )	// jeœli nie jest to komplet
+						{
+							MakeSec("Pozycja dokumentu")
+							{
+
+								if(equal([kod], ""))
+								{
+									//$PKWiU	= [PKWiU]
+									$jednostkaMiary	= [jednostkaMiary]
+									Section( "Nazwa_Dl", "Nazwa_Dl", "REPEAT")
+									{
+										$opis = [opis]
+									}
+
+									$cena   = [cena]
+									
+									Section( "stVAT", "stVAT")
+									{
+										$typ = [typ]
+										$wartosc = [wartosc]
+									}
+								}
+								else
+								{
+									$kod = [kod]
+									$cena = [cena]
+								}
+
+								If( !Equal( $$czyWalutowy, 0 ) )
+								{
+									if( !Equal( $$kurs, 0 ) )
+									{
+										$cena = DIV6( $cena, $$kurs )
+									}
+								}
+
+								$ilosc_ewid = [ilosc]
+
+								$odwrotneObc = 0
+								If( !Equal( [dokompletu], "1") )
+								{
+									If( !Equal( [odwrotneObc], "" ) )
+									{
+										$odwrotneObc = [odwrotneObc]
+									}
+								}
+								
+								$vat50 = 0
+								If( !Equal( [dokompletu], "1") )
+								{
+									If( !Equal( [vat50], "" ) )
+									{
+										$vat50 = [vat50]
+									}
+								}
+							}
+						}
+						break
+
+					case "notatka_dl"
+						MakeSec("Notatka_Dl")
+						{
+							$opis		= [opis]
+						}
+						break
+					}
+				}
+			}
+			break
+		case "MG"
+			MakeSec("DokumentMG")
+			{
+				$rezerwacja = [rezerwacja]
+				$dataWystawienia = [dataWystawienia]
+				$dataOperacji = [dataOperacji]
+				$typDk = [typDk]
+				$seria = [seria]
+				$termin = [termin]
+
+				Section( "Notatka_Dl", "Notatka_Dl", "REPEAT")
+				{
+					$opis = [opis]
+				}
+
+				$odebranyPrzez = [odebranyPrzez]
+				$czyPrzychod = [czyPrzychod]
+				$opis = [opis]
+				$rejestrVAT = [rejestrVAT]
+				$znacznik = [znacznik]
+
+				$numer 	= [numer]
+				$nazwa 	= [nazwa]
+
+				Section( "DaneKh", "DaneKh")
+				{
+					$KhKod = [KhKod]
+					$KhNazwa = [KhNazwa]
+					$KhUlica = [KhUlica]
+					$KhDomu = [KhDomu]
+					$KhLokal = [KhLokal]
+					$KhMiasto = [KhMiasto]		
+					$KhPoczta = [KhPoczta]
+					$KhKodPocz = [KhKodPocz]
+					$KhNIP = [KhNIP]
+					$NazwaAdresu  = [NazwaAdresu]
+				}
+
+				Section( "rodzaj", "rodzaj")
+				{
+					if ( equal(Def("DoRodzajuMG"), 3) )
+						Def("DoRodzajuMG", Ask("Czy importowaæ rodzaje dokumentów magazynowych?", "{{icon=? buttons=[Tak:6](Nie:7)}}") )
+
+					if ( equal(Def("DoRodzajuMG"), 6) )
+					{
+						$kod = [kod]
+						$dodajJesliNowy = 1
+					}
+				}
+
+				Section( "katalog", "katalog")
+				{
+					if ( equal(Def("DoKataloguMG"), 3) )
+						Def("DoKataloguMG", Ask("Czy importowaæ katalogi dokumentów magazynowych?", "{{icon=? buttons=[Tak:6](Nie:7)}}") )
+
+					if ( equal(Def("DoKataloguMG"), 6) )
+					{
+						$Nazwa =[Nazwa]
+						$dodajJesliNowy = 1
+					}
+				}
+
+				Section("", "", "REPEAT")
+				{
+					switch( Translate( Name(), "L") )
+					{
+					case "pozycja dokumentu"
+						if ( equal($$czyPrzychod, "1") )
+						{
+							if ( !equal([komplet], "1") )	// jeœli nie jest to komplet
+							{
+								MakeSec("Pozycja dokumentu")
+								{
+									$kod = [kod]
+									$ilosc_ewid = [ilosc]
+									
+	//								$wartosc = [przychod]
+
+									Section( "Nazwa_Dl", "Nazwa_Dl", "REPEAT")
+									{
+										$opis = [opis]
+									}
+								}
+							}
+						}
+						else // rozchód
+						{
+							if ( !equal([dokompletu], "1") )	// jeœli nie jest to element kompletu
+							{
+								MakeSec("Pozycja dokumentu")
+								{
+									$kod = [kod]
+									$ilosc_ewid = [ilosc]
+									
+									Section( "Nazwa_Dl", "Nazwa_Dl", "REPEAT")
+									{
+										$opis = [opis]
+									}
+								}
+							}
+						}
+						break
+
+					case "notatka_dl"
+						MakeSec("Notatka_Dl")
+						{
+							$opis		= [opis]
+						}
+						break
+					}
+				}
+			}
+			break
+		case else // "SP"
+			MakeSec("DokumentSP")
+			{
+				$dataWystawienia = [dataWystawienia]
+				$dataSprzedazy = [dataSprzedazy]
+				$typDk = [typDk]
+				$seria = [seria]
+				$typCeny = [typCeny]
+				$rodzajCeny = [rodzajCeny]
+				$terminPlatnosci = [terminPlatnosci]
+
+				Section( "Notatka_Dl", "Notatka_Dl", "REPEAT")
+				{
+					$opis = [opis]
+				}
+
+				$SplitPayment = [MPP]
+				$odebranyPrzez = [odebranyPrzez]
+				$opis = [opis]
+				$rejestrVAT = [rejestrVAT]
+				$waluta = [waluta]
+				$przelicznikKursu = Def( "przelicznikKursu" )
+				$czyWalutowy = [czyWalutowy]
+				$kurs = [kurs]
+				$kursDoch = [kursDochWp]
+				$znacznik = [znacznik]
+				$naliczanieVAT = [naliczanieVAT]
+				$JPK_V7 = [JPK_V7]
+
+				$numer 	= [numer]
+				$nazwa 	= [nazwa]
+				$kod 	= [kod]
+
+				Section("DaneKh", "DaneKh")
+				{
+					$KhKod = [KhKod]
+					$KhNazwa = [KhNazwa]
+					$KhUlica = [KhUlica]
+					$KhDomu = [KhDomu]
+					$KhLokal = [KhLokal]
+					$KhMiasto = [KhMiasto]		
+					$KhPoczta = [KhPoczta]
+					$KhKodPocz = [KhKodPocz]					
+					$KhNIP = [KhNIP]
+
+					Section( "kraj", "kraj")
+					{
+						$aktywny = [aktywny]
+						$symbol = [symbol]
+						$nazwa = [nazwa]
+						$ue = [ue]
+					}
+				}
+
+				Section("DaneOd", "DaneOd")
+				{
+					$KhKod = [KhKod]
+					$KhNazwa = [KhNazwa]
+					$KhUlica = [KhUlica]
+					$KhDomu = [KhDomu]
+					$KhLokal = [KhLokal]
+					$KhMiasto = [KhMiasto]		
+					$KhPoczta = [KhPoczta]
+					$KhKodPocz = [KhKodPocz]
+					$NazwaAdresu  = [NazwaAdresu]
+				}
+
+				Section("rejestr", "rejestr")
+				{
+					$kod = [kod]
+				}
+
+				Section("formaPl", "formaPl")
+				{
+					$nazwa = [nazwa]
+					$termin = [termin]
+				}
+
+				Section( "rodzaj", "rodzaj")
+				{
+					if ( equal(Def("DoRodzajuSP"), 3) )
+						Def("DoRodzajuSP", Ask("Czy importowaæ rodzaje dokumentów sprzeda¿y?", "{{icon=? buttons=[Tak:6](Nie:7)}}") )
+
+					if ( equal(Def("DoRodzajuSP"), 6) )
+					{
+						$kod = [kod]
+						$dodajJesliNowy = 1
+					}
+				}
+
+				Section( "katalog", "katalog")
+				{
+					if ( equal(Def("DoKataloguSP"), 3) )
+						Def("DoKataloguSP", Ask("Czy importowaæ katalogi dokumentów sprzeda¿y?", "{{icon=? buttons=[Tak:6](Nie:7)}}") )
+
+					if ( equal(Def("DoKataloguSP"), 6) )
+					{
+						$Nazwa =[Nazwa]
+						$dodajJesliNowy = 1
+					}
+				}
+
+				Section("", "", "REPEAT")
+				{
+					switch( Translate( Name(), "L") )
+					{
+					case "pozycja dokumentu"
+						if ( !equal([dokompletu], "1") )	// jeœli nie jest to element kompletu
+						{
+							MakeSec("Pozycja dokumentu")
+							{
+								if(equal([kod], ""))
+								{
+									//$PKWiU	= [PKWiU]
+									$jednostkaMiary	= [jednostkaMiary]
+									Section( "Nazwa_Dl", "Nazwa_Dl", "REPEAT")
+									{
+										$opis = [opis]
+									}
+
+									$PKWiU	= [PKWiU]
+									$cena   = [cena]
+									
+									Section( "stVAT", "stVAT")
+									{
+										$typ = [typ]
+										$wartosc = [wartosc]
+									}
+								}
+								else
+								{
+									Section( "Nazwa_Dl", "Nazwa_Dl", "REPEAT")
+									{
+										$opis = [opis]
+									}
+								
+									$kod = [kod]
+									$cena = [cena]
+								}
+
+								If( !Equal( $$czyWalutowy, 0 ) )
+								{
+									if( !Equal( $$kurs, 0 ) )
+									{
+										$cena = DIV6( $cena, $$kurs )
+									}
+								}
+
+								$ilosc_ewid = [ilosc]
+
+								If( !Equal( [odwrotneObc], "" ) )
+								{
+									$odwrotneObc = [odwrotneObc]
+								}
+								else
+								{
+									$odwrotneObc = 0
+								}
+							}
+						}
+						break
+
+					case "notatka_dl"
+						MakeSec("Notatka_Dl")
+						{
+							$opis		= [opis]
+						}
+						break
+					}
+				}
+			}
+			break
+		}
+	}
+}
